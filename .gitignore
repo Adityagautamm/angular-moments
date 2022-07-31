@@ -1,0 +1,45 @@
+server/node_modules
+server/uploads
+Album\.angular
+
+# Compiled output
+Album/dist
+Album/tmp
+Album/out-tsc
+Album/bazel-out
+
+# Node
+Album/node_modules
+Album/npm-debug.log
+Album/yarn-error.log
+
+# IDEs and editors
+Album/.idea/
+Album/.project
+Album/.classpath
+Album/.c9/
+*.launch
+Album/.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+Album/.angular/cache
+Album/.sass-cache/
+Album/connect.lock
+Album/coverage
+Album/libpeerconnection.log
+Album/testem.log
+Album/typings
+
+# System files
+Album/.DS_Store
+Album/Thumbs.db
+

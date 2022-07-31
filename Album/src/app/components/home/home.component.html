@@ -1,0 +1,33 @@
+<div class="post-list">
+  <ng-container *ngFor="let post of postList">
+    <mat-card class="post">
+      <mat-card-header>
+        <mat-card-title *ngIf="post.title">{{ post.title }}</mat-card-title>
+        <div class="header-info">
+          <mat-card-subtitle *ngIf="post.location">{{
+            post.location
+          }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="post.createdAt">{{
+            post.createdAt
+          }}</mat-card-subtitle>
+        </div>
+      </mat-card-header>
+      <img
+        *ngIf="post.selectedFiles"
+        mat-card-image
+        src="{{ post.selectedFiles }}"
+        alt="Photo of a Shiba Inu"
+      />
+      <mat-card-content *ngIf="post.description">
+        <p>
+          {{ post.description }}
+        </p>
+      </mat-card-content>
+      <mat-card-footer *ngIf="post.tags">{{ post.tags }}</mat-card-footer>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

@@ -1,0 +1,25 @@
+.post-list{
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+width: 90%;
+height: fit-content;
+
+}
+
+.post {
+  width: 22em;
+  margin: 1em;
+}
+
+.mat-card-header{
+display: flex;
+flex-direction: column;
+}
+
+.header-info{
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+

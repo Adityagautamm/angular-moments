@@ -1,0 +1,73 @@
+<form
+  class="form"
+  [formGroup]="postForm"
+  enctype="multipart/form-data"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input
+      class="form-input"
+      formControlName="title"
+      matInput
+      placeholder="Placeholder"
+    />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Location</mat-label>
+    <input
+      class="form-input"
+      formControlName="location"
+      matInput
+      placeholder="Placeholder"
+    />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Choose a date</mat-label>
+    <input formControlName="date" matInput [matDatepicker]="picker" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tags</mat-label>
+    <input
+      class="form-input"
+      formControlName="tags"
+      matInput
+      placeholder="Placeholder"
+    />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field class="form-description" appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea
+      class="form-input"
+      formControlName="description"
+      matInput
+      cdkAutosizeMinRows="1"
+    ></textarea>
+  </mat-form-field>
+  <div class="mat-form-field">
+    <label for="file" class="labelClass"
+      >Choose a file
+      <input
+        type="file"
+        name="file"
+        id="file"
+        class="myclass"
+        name="image"
+        multiple
+        (change)="storeFiles($event)"
+      />
+    </label>
+  </div>
+
+  <button type="submit" mat-raised-button color="primary">Submit</button>
+</form>
