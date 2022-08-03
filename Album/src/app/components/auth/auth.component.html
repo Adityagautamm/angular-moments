@@ -1,0 +1,64 @@
+<form
+  class="form"
+  [formGroup]="postForm"
+  enctype="multipart/form-data"
+  (ngSubmit)="onSubmit()"
+  autocomplete="off"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input
+      required
+      class="form-input"
+      formControlName="firstName"
+      matInput
+      placeholder="Placeholder"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input
+      required
+      class="form-input"
+      formControlName="lastName"
+      matInput
+      placeholder="Placeholder"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      required
+      class="form-input"
+      formControlName="email"
+      matInput
+      placeholder="Placeholder"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      required
+      type="password"
+      class="form-input"
+      formControlName="password"
+      matInput
+      placeholder="Placeholder"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Confirm Password</mat-label>
+    <input
+      required
+      class="form-input"
+      formControlName="confirmPassword"
+      matInput
+      placeholder="Placeholder"
+    />
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Submit</button>
+</form>

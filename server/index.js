@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/user.js';
+
 
 dotenv.config();
 const app = express();
@@ -15,6 +17,7 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 app.use('/postImage', express.static('uploads'))
 const CONNECTION_URL = process.env.CONNECTION_URL;
 

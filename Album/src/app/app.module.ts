@@ -20,6 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreateMemoryComponent } from './components/create-memory/create-memory.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CreateMemoryComponent,
     HomeComponent,
     NavbarComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpClientModule,
     MatToolbarModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

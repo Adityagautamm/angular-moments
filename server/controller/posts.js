@@ -9,7 +9,6 @@ export const getPosts = async (req, res) => {
                 object.selectedFiles = process.env.ImageUrl + object.selectedFiles;
             }
         }
-        console.log('posts--' + posts);
         res.status(200).json({
             data: posts
         })
