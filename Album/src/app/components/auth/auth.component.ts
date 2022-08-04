@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { register } from 'src/app/models/registration';
 
 import { UserAuthService } from 'src/app/services/user-auth.service';
@@ -20,7 +21,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userAuthService: UserAuthService
+    private userAuthService: UserAuthService,
+    private route: Router
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,11 @@ export class AuthComponent implements OnInit {
     this.userAuthService
       .registerUser(this.registerationData)
       .subscribe((data: any) => {
-        alert(JSON.stringify(data.message));
+        if (data != null) {
+          localStorage.setItem('token', data.token);
+        }
+        this.route.navigate(['/home']);
+        alert(JSON.stringify(data.message + '--Hello--' + data.result.name));
       });
     this.postForm.reset();
   }
