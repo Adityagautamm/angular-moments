@@ -13,4 +13,16 @@ export class UserAuthService {
     const body = { data: registrationData };
     return this.http.post<any>('http://localhost:8000/user/signup', body);
   }
+
+  isLoggedIn() {
+    return localStorage.getItem('token') != null;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
 }
