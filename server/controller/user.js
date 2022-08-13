@@ -28,7 +28,6 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
     const { firstName, lastName, email, password, confirmPassword, } = req.body.data;
-
     try {
         const existingUser = await userModel.findOne({ email });
 
@@ -38,11 +37,14 @@ export const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await userModel.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" })
+        const refreshToken = jwt.sign({ name: firstName + "" + lastName, email: email, time: Date.now() }, 'test_refreshToken',)
 
-        res.status(200).json({ result, token, message: 'Registered successfully' });
+        const result = await userModel.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`, refreshToken: refreshToken });
+
+        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "920s" });
+        console.log('real token------' + token);
+        res.status(200).json({ result, token, refreshToken, message: 'Registered successfully' });
     } catch (error) {
         res.status(500).json({ message: "Something went wronggggggggggggg" + error });
         console.error(error.response.data);

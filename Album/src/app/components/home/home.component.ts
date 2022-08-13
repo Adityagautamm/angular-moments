@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
       .getPostsList()
       .subscribe((postList: any) => {
         this.postList = postList.data;
-        console.log(postList);
+        console.log('response' + postList);
       });
   }
 

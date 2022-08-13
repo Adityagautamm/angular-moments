@@ -13,7 +13,9 @@ export class PostServiceService {
   createPost(formData: FormData): Observable<any> {
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
     //const body = { post: post};
-    return this.http.post<any>('http://localhost:8000/posts', formData);
+    return this.http.post<any>('http://localhost:8000/posts', formData, {
+      observe: 'response',
+    });
   }
 
   getPostsList(): Observable<any> {

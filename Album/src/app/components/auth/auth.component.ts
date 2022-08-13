@@ -49,6 +49,7 @@ export class AuthComponent implements OnInit {
       .subscribe((data: any) => {
         if (data != null) {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('refreshToken', data.refreshToken);
         }
         this.route.navigate(['/home']);
         alert(JSON.stringify(data.message + '--Hello--' + data.result.name));

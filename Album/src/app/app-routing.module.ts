@@ -8,15 +8,16 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'createpost',
     component: CreateMemoryComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

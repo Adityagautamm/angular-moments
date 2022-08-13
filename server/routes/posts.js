@@ -5,7 +5,7 @@ import auth from '../middleware/auth.js'
 import { upload } from '../middleware/uploadFile.js';
 const router = express.Router();
 
-router.get('/', getPosts);
+router.get('/', auth, getPosts);
 router.post('/', auth, upload.single('file'), createPosts);
 
 

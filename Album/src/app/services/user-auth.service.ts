@@ -20,6 +20,7 @@ export class UserAuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
   }
 
   getToken(): string {

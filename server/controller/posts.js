@@ -3,15 +3,18 @@ import PostModel from "../models/postModel.js";
 
 export const getPosts = async (req, res) => {
     try {
-        const posts = await PostModel.find();
-        for (const object of posts) {
-            if (object.selectedFiles) {
-                object.selectedFiles = process.env.ImageUrl + object.selectedFiles;
+        if (req.authenticated) {
+            const posts = await PostModel.find();
+            for (const object of posts) {
+                if (object.selectedFiles) {
+                    object.selectedFiles = process.env.ImageUrl + object.selectedFiles;
+                }
             }
+            res.status(200).json({
+                data: posts
+            })
         }
-        res.status(200).json({
-            data: posts
-        })
+        else { res.status(401) }
     } catch (error) {
         res.status(404).json({ message: error.message })
     }

@@ -3,29 +3,46 @@ const secret = 'test';
 
 const auth = async (req, res, next) => {
     console.log('Middleware')
-    next();
-    // try {
+    try {
 
-    //     const token = req.headers.authorization.split("")[1];
-    //     const isCustomAuth = token.length < 500;
+        const token = req.headers.authorization.split(" ")[1];
+        console.log('decodedData----' + token)
+        const isCustomAuth = token.length < 500;
 
-    //     let decodedData;
+        let decodedData;
 
-    //     if (token && isCustomAuth) {
-    //         decodedData = jwt.verify(token, secret);
+        if (token && isCustomAuth) {
 
-    //         req.userId = decodedData?.id;
-    //     } else {
+            jwt.verify(token, secret, function (err, decoded) {
 
-    //         decodedData = jwt.decode(token);
+                if (err) {
+                    console.log("token authentication failed");
+                    console.log("error----" + err);
+                    req.authenticated = false;
+                    req.decoded = null;
 
-    //         req.userId = decodedData?.sub;
-    //     }
+                } else {
+                    console.log("token authentication passed");
+                    req.decoded = decoded;
+                    req.authenticated = true;
 
-    //     next();
-    // } catch (error) {
-    //     console.log(error);
-    // }
+                }
+            });
+
+            // decodedData = jwt.verify(token, secret);
+
+            // req.userId = decodedData?.id;
+        } else {
+            console.log('DECODE');
+            decodedData = jwt.decode(token);
+
+            req.userId = decodedData?.sub;
+        }
+
+        next();
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export default auth;
