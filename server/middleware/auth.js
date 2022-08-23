@@ -15,18 +15,9 @@ const auth = async (req, res, next) => {
 
             jwt.verify(token, secret, function (err, decoded) {
 
-                if (err) {
-                    console.log("token authentication failed");
-                    console.log("error----" + err);
-                    req.authenticated = false;
-                    req.decoded = null;
-
-                } else {
-                    console.log("token authentication passed");
-                    req.decoded = decoded;
-                    req.authenticated = true;
-
-                }
+                if (err) return res.sendStatus(403); //invalid token
+                req.user = decoded.username;
+                next();
             });
 
             // decodedData = jwt.verify(token, secret);

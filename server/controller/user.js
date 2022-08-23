@@ -6,7 +6,7 @@ import userModel from '../models/userModel.js'
 
 
 export const signin = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body.data;
 
     try {
         const existingUser = await userModel.findOne({ email });
@@ -17,9 +17,22 @@ export const signin = async (req, res) => {
 
         if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' })
 
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: "1h" })
+        // create JWTs
+        const accessToken = jwt.sign({ name: existingUser.name, email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: "1h" })
 
-        res.status(200).json({ result: existingUser, token });
+        const refreshToken = jwt.sign({ email: existingUser.email, time: Date.now() }, 'test_refreshToken',)
+
+        //storing the new refreesh Token   
+        userModel.findOneAndUpdate({ email: email }, { $set: { refreshToken: refreshToken } }, { new: false }, (err, doc) => {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+
+            console.log(doc);
+        });
+
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).json({ name: existingUser.name, accessToken });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
     }

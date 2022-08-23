@@ -20,12 +20,16 @@ export class HomeComponent implements OnInit {
   }
 
   getAllPosts(): void {
-    this.gameSub = this.httpService
-      .getPostsList()
-      .subscribe((postList: any) => {
+    this.gameSub = this.httpService.getPostsList().subscribe(
+      (postList: any) => {
         this.postList = postList.data;
-        console.log('response' + postList);
-      });
+      },
+      (error) => {
+        // You can access status:
+        console.log('response--' + error.message);
+        console.log(error.status);
+      }
+    );
   }
 
   ngOnDestroy(): void {

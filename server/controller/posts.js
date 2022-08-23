@@ -14,9 +14,14 @@ export const getPosts = async (req, res) => {
                 data: posts
             })
         }
-        else { res.status(401) }
+        else {
+            res.status(401).json({
+                message: res.message
+            })
+        }
     } catch (error) {
         res.status(404).json({ message: error.message })
+        console.log(JSON.stringify(error))
     }
 }
 
