@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -12,6 +12,18 @@ export class UserAuthService {
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
     const body = { data: registrationData };
     return this.http.post<any>('http://localhost:8000/user/signup', body);
+  }
+
+  authenticateUser(loginData: any): Observable<any> {
+    //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
+    const body = { data: loginData };
+    const paramters = new HttpParams({
+      fromObject: { credentials: 'include', withCredentials: true },
+    });
+
+    return this.http.post<any>('http://localhost:8000/user/signin', body, {
+      params: paramters,
+    });
   }
 
   isLoggedIn() {

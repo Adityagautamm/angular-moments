@@ -31,8 +31,9 @@ export const signin = async (req, res) => {
             console.log(doc);
         });
 
-        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.status(200).json({ name: existingUser.name, accessToken });
+
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).json({ name: existingUser.name, accessToken, message: 'Login successfully' });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
     }

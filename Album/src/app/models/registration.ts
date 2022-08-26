@@ -5,3 +5,8 @@ export interface register {
   password: string;
   confirmPassword: string;
 }
+
+export interface loginData {
+  email: string;
+  password: string;
+}

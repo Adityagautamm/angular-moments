@@ -22,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HomeComponent,
     NavbarComponent,
     AuthComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
