@@ -23,6 +23,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       setHeaders: {
         Authorization: 'bearer ' + authservice.getToken(),
       },
+      withCredentials: true,
     });
 
     return next.handle(jwtToken);

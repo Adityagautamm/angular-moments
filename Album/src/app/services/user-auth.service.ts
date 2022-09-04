@@ -18,7 +18,7 @@ export class UserAuthService {
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
     const body = { data: loginData };
     const paramters = new HttpParams({
-      fromObject: { credentials: 'include', withCredentials: true },
+      fromObject: { Credential: 'include', withCredentials: true },
     });
 
     return this.http.post<any>('http://localhost:8000/user/signin', body, {
