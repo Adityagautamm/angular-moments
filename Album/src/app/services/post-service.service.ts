@@ -19,8 +19,6 @@ export class PostServiceService {
   }
 
   getPostsList(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/posts', {
-      observe: 'response',
-    });
+    return this.http.get<any>('http://localhost:8000/posts');
   }
 }

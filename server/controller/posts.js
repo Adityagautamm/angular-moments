@@ -1,26 +1,23 @@
-import mongoose from "mongoose";
+
 import PostModel from "../models/postModel.js";
 
 export const getPosts = async (req, res) => {
+    console.log('inside post')
     try {
-        if (req.authenticated) {
-            const posts = await PostModel.find();
-            for (const object of posts) {
-                if (object.selectedFiles) {
-                    object.selectedFiles = process.env.ImageUrl + object.selectedFiles;
-                }
+        const posts = await PostModel.find();
+        for (const object of posts) {
+            if (object.selectedFiles) {
+                object.selectedFiles = process.env.ImageUrl + object.selectedFiles;
             }
-            res.status(200).json({
-                data: posts
-            })
         }
-        else {
-            res.status(401).json({
-                message: res.message
-            })
-        }
-    } catch (error) {
-        res.status(404).json({ message: error.message })
+
+        res.status(200).json({
+            data: posts
+        })
+    }
+
+    catch (error) {
+        res.status(404).json({ error })
         console.log(JSON.stringify(error))
     }
 }

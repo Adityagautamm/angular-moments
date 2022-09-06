@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,32 @@ export class UserAuthService {
     localStorage.removeItem('refreshToken');
   }
 
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
   getToken(): string {
     return localStorage.getItem('token') || '';
+  }
+
+  refreshToken() {
+    const body = {};
+    const paramters = new HttpParams({
+      fromObject: { Credential: 'include', withCredentials: true },
+    });
+
+    return this.http
+      .post<any>('http://localhost:8000/refresh/token', {
+        params: paramters,
+      })
+      .pipe(
+        tap(() => {
+          'some token';
+        })
+      );
+  }
+
+  private getRefreshToken() {
+    return 'refreshToekn-abc';
   }
 }

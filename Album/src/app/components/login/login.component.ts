@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit {
       .authenticateUser(this.loginData)
       .subscribe((data: any) => {
         if (data != null) {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('token', data.accessToken);
         }
+        console.log('after login data ---' + JSON.stringify(data));
         this.route.navigate(['/home']);
         alert(JSON.stringify(data.message + '--Hello--' + data.name));
       });

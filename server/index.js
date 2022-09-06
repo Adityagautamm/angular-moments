@@ -9,7 +9,7 @@ import credentials from './middleware/credentials.js'
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
-import refreshRoutes from './routes/auth.js';
+import refreshRoutes from './routes/refresh.js';
 import logoutRoutes from './routes/auth.js';
 
 dotenv.config();

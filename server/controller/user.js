@@ -18,7 +18,7 @@ export const signin = async (req, res) => {
         if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' })
 
         // create JWTs
-        const accessToken = jwt.sign({ name: existingUser.name, email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: "1h" })
+        const accessToken = jwt.sign({ name: existingUser.name, email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: "10s" })
 
         const refreshToken = jwt.sign({ email: existingUser.email, time: Date.now() }, 'test_refreshToken',)
 

@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 import userModel from '../models/userModel.js'
 
 
-const handleRefreshToken = (req, res) => {
+export const handleRefreshToken = async (req, res) => {
+    console.log('handling refeshtoken method' + JSON.stringify(req))
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
@@ -20,11 +21,10 @@ const handleRefreshToken = (req, res) => {
             const accessToken = jwt.sign(
                 { "username": decoded.username },
                 'test',
-                { expiresIn: '30s' }
+                { expiresIn: '10s' }
             );
             res.json({ accessToken })
         }
     );
 }
 
-module.exports = { handleRefreshToken }
