@@ -51,12 +51,13 @@ export class UserAuthService {
     });
 
     return this.http
-      .post<any>('http://localhost:8000/refresh/token', {
+      .get<any>('http://localhost:8000/refresh', {
         params: paramters,
       })
       .pipe(
-        tap(() => {
-          'some token';
+        tap((response: any) => {
+          console.log('response access token');
+          this.setToken(response.accessToken);
         })
       );
   }

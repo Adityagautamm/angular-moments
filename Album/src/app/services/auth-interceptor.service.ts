@@ -60,17 +60,18 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    console.log('inside 401 method');
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
-          this.authService.setToken(token);
+          //  this.authService.setToken(token);
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(token);
-          return next.handle(this.addToken(request, token));
+          this.refreshTokenSubject.next(token.accessToken);
+          return next.handle(
+            this.addToken(request, this.authService.getToken())
+          );
         })
       );
     } else {
