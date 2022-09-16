@@ -33,7 +33,14 @@ export class UserAuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
+    const body = {};
+    const paramters = new HttpParams({
+      fromObject: { Credential: 'include', withCredentials: true },
+    });
+
+    return this.http.get<any>('http://localhost:8000/logout', {
+      params: paramters,
+    });
   }
 
   setToken(token: string) {

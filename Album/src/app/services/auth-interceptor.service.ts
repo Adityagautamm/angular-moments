@@ -43,7 +43,7 @@ export class AuthInterceptorService implements HttpInterceptor {
           return this.handle401Error(request, next);
           //return throwError(() => new Error('test'));
         } else {
-          return throwError(() => new Error('response handler else side'));
+          return throwError(() => new Error('Already renewed Access token'));
           //(error);
         }
       })
@@ -66,7 +66,6 @@ export class AuthInterceptorService implements HttpInterceptor {
 
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
-          //  this.authService.setToken(token);
           this.isRefreshing = false;
           this.refreshTokenSubject.next(token.accessToken);
           return next.handle(

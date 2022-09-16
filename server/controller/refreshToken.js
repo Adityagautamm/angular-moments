@@ -15,7 +15,8 @@ export const handleRefreshToken = async (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
-            if (err || foundUser.email !== decoded.email) return res.sendStatus(403);
+            if (err) return res.sendStatus(401);
+            if (foundUser.email !== decoded.email) return res.sendStatus(403);
             const accessToken = jwt.sign(
                 { "username": decoded.email },
                 'test',

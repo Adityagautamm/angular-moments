@@ -24,6 +24,8 @@ import { AuthComponent } from './components/auth/auth.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { LoginComponent } from './components/login/login.component';
 
+import { StoreModule } from '@ngrx/store';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +51,7 @@ import { LoginComponent } from './components/login/login.component';
     MatNativeDateModule,
     HttpClientModule,
     MatToolbarModule,
+    StoreModule,
   ],
   providers: [
     {
