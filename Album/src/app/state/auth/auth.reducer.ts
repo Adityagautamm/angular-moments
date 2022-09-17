@@ -1,11 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { loginSuccess } from './auth.actions';
+import { AuthState, initialState } from './auth.state';
 
-import { retrievedBookList } from './books.actions';
-import { Book } from '../book-list/books.model';
-
-export const initialState: ReadonlyArray<Book> = [];
-
-export const booksReducer = createReducer(
+const _authReducer = createReducer(
   initialState,
-  on(retrievedBookList, (state, { books }) => books)
+  on(loginSuccess, (state, action) => {
+    return {
+      ...state,
+      credentials: action.credentialState,
+    };
+  })
 );
+
+export function AuthReducer(state: AuthState | undefined, action: Action) {
+  return _authReducer(state, action);
+}

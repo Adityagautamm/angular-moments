@@ -25,6 +25,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { LoginComponent } from './components/login/login.component';
 
 import { StoreModule } from '@ngrx/store';
+import { AuthReducer } from './state/auth/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { StoreModule } from '@ngrx/store';
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({ auth: AuthReducer }),
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
