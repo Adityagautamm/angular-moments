@@ -26,6 +26,11 @@ import { LoginComponent } from './components/login/login.component';
 
 import { StoreModule } from '@ngrx/store';
 import { AuthReducer } from './state/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '../app/state/auth/auth.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { appReducer } from './store/aap.state';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,9 @@ import { AuthReducer } from './state/auth/auth.reducer';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ auth: AuthReducer }),
+    //StoreModule.forRoot({ auth: AuthReducer }),
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([AuthEffects]),
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -54,6 +61,15 @@ import { AuthReducer } from './state/auth/auth.reducer';
     HttpClientModule,
     MatToolbarModule,
     StoreModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
   ],
   providers: [
     {

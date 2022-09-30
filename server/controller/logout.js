@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import userModel from '../models/userModel.js'
 
-const handleLogout = async (req, res) => {
+export const handleLogout = async (req, res) => {
     // On client, also delete the accessToken
 
     const cookies = req.cookies;
@@ -30,4 +30,3 @@ const handleLogout = async (req, res) => {
     res.sendStatus(204);
 }
 
-module.exports = { handleLogout }

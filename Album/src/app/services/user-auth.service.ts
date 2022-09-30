@@ -1,13 +1,20 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
+import { credentials } from '../models/credentials';
+import { accessTokenRefresh } from '../state/auth/auth.actions';
+import { getToken } from '../state/auth/auth.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserAuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store<{ auth: { credentialsState: credentials } }>
+  ) {}
 
   registerUser(registrationData: any): Observable<any> {
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
@@ -48,7 +55,17 @@ export class UserAuthService {
   }
 
   getToken(): string {
-    return localStorage.getItem('token') || '';
+    let token!: string;
+    // this.store.select('auth').subscribe((data) => {
+    //   token = data.credentialsState.token;
+    // });
+    //return token || '';
+    //return localStorage.getItem('token') || '';
+
+    this.store.select(getToken).subscribe((data) => {
+      token = data || '';
+    });
+    return token;
   }
 
   refreshToken() {
@@ -64,7 +81,11 @@ export class UserAuthService {
       .pipe(
         tap((response: any) => {
           console.log('response access token');
-          this.setToken(response.accessToken);
+          this.store.dispatch(
+            accessTokenRefresh({
+              token: response.accessToken,
+            })
+          );
         })
       );
   }
